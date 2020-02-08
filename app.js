@@ -34,7 +34,7 @@ function IssueTracker (){
 IssueTracker.prototype = {
 
 	add: function( message ){
-		this.errorMessage.push(message+"\n");
+		this.errorMessage.push(message+",");
 	},
 
 	checkForValidation: function(input) {
@@ -65,7 +65,13 @@ IssueTracker.prototype = {
 	},
 
 	retrieveErrors: function(){
-		return this.errorMessage.join("\n");
+		//FOR DELETING THE LAST ARRAY ELEMENT COMMA FROM THE TOTAL MESSAGE
+		let i,
+		errorMessage = this.errorMessage,
+		arrLength = errorMessage.length;
+		errorMessage[arrLength-1]= errorMessage[arrLength-1].replace(/,/g, "");
+
+		return errorMessage.join("\n");
 	},
 
 	showErrorMessage: function(){
@@ -95,8 +101,6 @@ submit.onclick = function () {
 		var issueTracker = new IssueTracker();
 
 		issueTracker.checkForValidation(value1);
-
-		
 	}else {
 		secondPasswordInput.setCustomValidity("Passwords don\'t match");
 	}
